@@ -23,10 +23,10 @@ def get_args():
 
 
     tf.flags.DEFINE_string('optimizer', 'adam', 'Which optimization method to use') # adam 0.001  adadelta
-    tf.flags.DEFINE_float('lr', 0.0001, 'learning rate')
+    tf.flags.DEFINE_float('lr', 0.0005, 'learning rate')
     tf.flags.DEFINE_boolean("lr_decay", True, "Allow reload the model")
     tf.flags.DEFINE_float('decay_rate', 0.9, 'decay rate')  
-    tf.flags.DEFINE_integer('decay_steps', 1000, 'decay steps')  
+    tf.flags.DEFINE_integer('decay_steps', 2000, 'decay steps')  
     tf.flags.DEFINE_float('lr_minimal', 0.00005, 'minimal learning rate') # 0.00002
 
 
@@ -36,7 +36,7 @@ def get_args():
 
 
     # Training parameters
-    tf.flags.DEFINE_integer("batch_size", 100, "Batch Size")
+    tf.flags.DEFINE_integer("batch_size", 20, "Batch Size")
     tf.flags.DEFINE_integer("num_epochs", 200000, "Number of training epochs")
     tf.flags.DEFINE_integer("print_every", 50, "Print the results after this many steps")
     tf.flags.DEFINE_integer("valid_every", 2000, "Evaluate model on dev set after this many steps")
