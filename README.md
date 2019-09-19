@@ -16,10 +16,8 @@ This is an implementation of [One Time of Interaction May Not Be Enough: Go Deep
 Dowload ubuntu corpus and preprocess the data, run
 
 ```bash
-# download ubuntu corpus
+# download ubuntu corpus and the pre-trained word2vec file 
 sh download.sh
-
-# Prepare a pre-trained word2vec file 
 
 # preprocess the data
 python data_utils_record.py
