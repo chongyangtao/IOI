@@ -2,7 +2,6 @@ import os
 import pickle
 from collections import defaultdict
 import logging
-import gensim
 import time
 import numpy as np
 from random import shuffle
@@ -89,7 +88,7 @@ def load_file(input_file, word2idx_file, isshuffle = True):
             data = {"y": label, "c": context, "r": response}
             revs.append(data)
             response_set.append(response)
-    print("processed dataset with %d context-response pairs " % (len(revs)))
+    print("Processed dataset with %d context-response pairs " % (len(revs)))
     if isshuffle == True:
         shuffle(revs)
 
@@ -203,9 +202,45 @@ def get_batch_dataset(record_file, parser, batch_size, num_threads, capacity, is
         dataset = tf.data.TFRecordDataset(record_file).map(parser, num_parallel_calls=num_threads).shuffle(capacity).repeat().batch(batch_size)
     return dataset
 
+def process_word2vec(word2vec_file, emb_size,  total_words=10000000,  out_dict_file='word_dict.pkl', out_emb_file='word_emb_matrix.pkl'):
+    word_dict = dict()
+    vectors = []
+    zero_vec = list(np.zeros(emb_size, dtype=float))
+    vectors.append(zero_vec) # for pad
+    vectors.append(zero_vec) # for unk
+    word_dict['<pad>'] = 0
+    word_dict['<unk>'] = 1
+
+    with open(word2vec_file, 'r', encoding = "ISO-8859-1") as f:  
+        # there exits an useless line in word2vec 
+        lines = f.readlines()[1:]  
+        for i, line in enumerate(lines):
+            line = line.rstrip().split(' ')
+            word_dict[line[0]] = i + 2
+
+            if len(list(map(float, line[1:]))) !=emb_size:
+                print(word2vec_file, i, '_%s_'%line[0], len(list(map(float, line[1:]))))
+
+            vectors.append(list(map(float, line[1:])))
+            if i > total_words:
+                break
+        
+    with open(out_emb_file, 'wb') as f:
+        pickle.dump(vectors, f) # 
+    with open(out_dict_file, 'wb') as f:
+        pickle.dump(word_dict, f)
+
 
 if __name__ == "__main__":
-    data_path = 'data/ubuntu'
+    emb_size = 200
+    data_path = 'data/ubuntu_'
+
+    process_word2vec(os.path.join(data_path, 'ubuntu.200d.word2vec'), \
+                        emb_size, \
+                        out_dict_file=os.path.join(data_path, 'word_dict.pkl'), \
+                        out_emb_file=os.path.join(data_path, 'word_emb_matrix.pkl'))
+    
+
     if 0:
         build_records(os.path.join(data_path, 'train.txt'), 
                         os.path.join(data_path, 'word_dict.pkl'),
