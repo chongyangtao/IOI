@@ -205,8 +205,8 @@ if __name__ == "__main__":
                     writer.add_summary(summary_recall_at_2, step)
                     writer.add_summary(summary_recall_at_5, step)
                     return MeanLoss, recall_2_1+recall_at_1
-
-
+                
+            
             optimal_metrics = 0.0
             optimal_step = 0
             for i in range(FLAGS.num_epochs):
@@ -217,7 +217,7 @@ if __name__ == "__main__":
                     if metrics > optimal_metrics:
                         optimal_metrics = metrics
                         optimal_step = current_step
-                    print("min_val_step: %d \t| min_val_loss: %.3f \t| opt_step: %d \t| opt_metric: %.3f" %(minimal_val_step, minimal_val_loss, optimal_step, optimal_metrics))
+                    print("opt_step: %d \t| opt_metric: %.3f" %(optimal_step, optimal_metrics))
                     path = saver.save(sess, checkpoint_prefix, global_step=current_step)
                     print("Saved model checkpoint to {}\n".format(path))
                     
