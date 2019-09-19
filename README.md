@@ -1,5 +1,4 @@
 # IOI
-Tensorflow implementation for IOI model
 
 This is an implementation of [One Time of Interaction May Not Be Enough: Go Deep with an Interaction-over-Interaction Network for Response Selection in Dialogues, ACL 2019].
 
