@@ -233,7 +233,7 @@ def process_word2vec(word2vec_file, emb_size,  total_words=10000000,  out_dict_f
 
 if __name__ == "__main__":
     emb_size = 200
-    data_path = 'data/ubuntu_'
+    data_path = 'data/ubuntu'
 
     process_word2vec(os.path.join(data_path, 'ubuntu.200d.word2vec'), \
                         emb_size, \
