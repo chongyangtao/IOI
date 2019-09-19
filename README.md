@@ -10,9 +10,17 @@ This is an implementation of [One Time of Interaction May Not Be Enough: Go Deep
 
 
 ## Usage
-Prepare a pre-trained word2vec file and preprocess the data, run
+```bash
+```
+
+Dowload ubuntu corpus and preprocess the data, run
 
 ```bash
+# download ubuntu corpus
+sh download.sh
+
+# Prepare a pre-trained word2vec file 
+
 # preprocess the data
 python data_utils_record.py
 ```
