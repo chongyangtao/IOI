@@ -10,9 +10,6 @@ This is an implementation of [One Time of Interaction May Not Be Enough: Go Deep
 
 
 ## Usage
-```bash
-```
-
 Dowload ubuntu corpus and preprocess the data, run
 
 ```bash
