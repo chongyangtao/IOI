@@ -26,7 +26,7 @@ def get_args():
     tf.flags.DEFINE_float('lr', 0.0005, 'learning rate')
     tf.flags.DEFINE_boolean("lr_decay", True, "Allow reload the model")
     tf.flags.DEFINE_float('decay_rate', 0.9, 'decay rate')  
-    tf.flags.DEFINE_integer('decay_steps', 2000, 'decay steps')  
+    tf.flags.DEFINE_integer('decay_steps', 5000, 'decay steps')  
     tf.flags.DEFINE_float('lr_minimal', 0.00005, 'minimal learning rate') # 0.00002
 
 
