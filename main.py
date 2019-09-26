@@ -217,10 +217,10 @@ if __name__ == "__main__":
                     if metrics > optimal_metrics:
                         optimal_metrics = metrics
                         optimal_step = current_step
-                    print("opt_step: %d \t| opt_metric: %.3f" %(optimal_step, optimal_metrics))
-                    path = saver.save(sess, checkpoint_prefix, global_step=current_step)
-                    print("Saved model checkpoint to {}\n".format(path))
-                    
+                        print("opt_step: %d \t| opt_metric: %.3f" %(optimal_step, optimal_metrics))
+                        path = saver.save(sess, checkpoint_prefix, global_step=current_step)
+                        print("Saved model checkpoint to {}\n".format(path))
+
                 sys.stdout.flush()
 
 
