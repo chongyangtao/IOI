@@ -111,7 +111,6 @@ if __name__ == "__main__":
                     recall_at_5 = recall_at_k(np.array(ture_scores),  np.array(pred_scores), 5)
                     time_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                     print("**********************************")
-                    print("%s results.........."%(flag.title()))
                     print('pred_scores: ', len(pred_scores))
                     print("Step: %d \t| loss: %.3f \t| acc: %.3f \t|  %s" %(step, MeanLoss, MeanAcc, time_str))
                     print("recall_2_1:  %.3f" % (recall_2_1))
