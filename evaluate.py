@@ -14,6 +14,9 @@ from model import model
 random.seed(1234)
 np.random.seed(1234) 
 
+FLAGS = get_args()
+
+
 if __name__ == "__main__":
 
     if FLAGS.auto_gpu:
@@ -41,17 +44,26 @@ if __name__ == "__main__":
         session_conf.gpu_options.allow_growth = True
         sess = tf.Session(config=session_conf)
 
+        # Load pretrained word embeddings
+        print("Loading pretrained word embeddings ...")
+        init_embeddings_path = './%s/word_emb_matrix.pkl'%(FLAGS.data_path)
+        with open(init_embeddings_path, 'rb') as f:
+            embeddings = np.array(pickle.load(f))
+        FLAGS.vocab_size = embeddings.shape[0]
+
         with sess.as_default():
             test_record_file = './%s/test.tfrecords'%(FLAGS.data_path)
             parser = get_record_parser(FLAGS)
             test_dataset = get_batch_dataset(test_record_file, parser, FLAGS.batch_size, FLAGS.num_threads, FLAGS.capacity, True)
             test_iterator = test_dataset.make_initializable_iterator()
             
-            sess.run(test_iterator.string_handle())
+            sess.run(test_iterator.initializer)
 
             test_handle = sess.run(test_iterator.string_handle())
             handle = tf.placeholder(tf.string, shape=[])
-            model = model(iterator, FLAGS, pretrained_word_embeddings)
+            iterator = tf.data.Iterator.from_string_handle(handle, test_dataset.output_types, test_dataset.output_shapes)
+
+            model = model(iterator, FLAGS)
 
 
             global_step = tf.Variable(0, name="global_step", trainable=False)
