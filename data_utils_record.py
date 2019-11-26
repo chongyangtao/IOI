@@ -251,7 +251,7 @@ if __name__ == "__main__":
 
         build_records(os.path.join(data_path, 'test.txt'), 
                         os.path.join(data_path, 'word_dict.pkl'),
-                        os.path.join(data_path, 'test.char.small.tfrecords'), max_mum=10000)
+                        os.path.join(data_path, 'test.small.tfrecords'), max_mum=10000)
     else:
         build_records(os.path.join(data_path, 'train.txt'), 
                         os.path.join(data_path, 'word_dict.pkl'),
